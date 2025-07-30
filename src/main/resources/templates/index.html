@@ -15,51 +15,159 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
 
 </head>
+
 <body>
-    <div class="container">
         <!--Barra de navegación-->
     <header>
-        <h1 th:text="Bienvenido a Carpentry y Acabados SYC"></h1>
-        <nav>
-            <ul>
-                <li>
-                    <a href="/">Inicio</a>
-                </li>
-                <li>
-                    <a href="/about">Nosotros</a>
-                </li>
-                <li>
-                    <a href="/contact">Contáctanos</a>
-                </li>
-                <li>
-                    <a href="/galeria">Galería</a>
-                </li>
-            </ul>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <!--Logo-->
+                <a href="/" class="navbar-brand">Carpentry y Acabados SYC</a>
+                <!--Botón de menú-->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!--Menú de navegación-->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <!--Accesos del menú de navegación-->
+                        <li class="nav-item">
+                            <a class="nav-link" href="#inicio">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#nosotros">Nosotros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contacto">Contáctanos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#galeria">Galería</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </nav>
     </header>
-    <main>
-    <div class="container">      
-        <section>
-            
-        </section>
-    </div>
-    <div>
-        <section>
 
-        </section>
-    </div>
-    <div>
-        <article>
+    <!--Contenido principal-->
+    <section id="inicio" class="py-5 text-center text-white" style="background: url('/img/banner.jpg') no-repeat center center; background-size: cover;">
+        <div class="container">
+            <h1>Bienvenido a Carpentry y Acabados SYC</h1>
+            <p>Especialistas en carpintería, reformas y acabados de alta calidad</p>
+            <a href="#contacto" class="btn btn-primary">Contáctanos</a>
+        </div>
+    </section>
 
-        </article>
-    </div>
-    </div>
-    </main>
-    <footer>
-        <p>&copy; 2025 Carpentry SYC. All rights reserved.</p>
+    <!--Sección de Servicios-->
+    <section id="servicios" class="py-5 bg-light"
+        <div class="container">
+            <!--Titulo de la sección-->
+            <h2 class="text-center mb-4">Nuestros Servicios</h2>
+            <!--Tarjetas de servicios-->
+            <div class="row text-center">
+                <!--Tarjeta 1-->
+                <div class="col-md-4">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card body">
+                            <h5 class="card-title">Cocinas a medida</h5>
+                            <p class="card-text">Ofrecemos servicios de carpintería de alta calidad, desde la fabricación de muebles hasta la reparación de estructuras.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Tarjeta 2-->
+            <div class="col-md-4">
+                <div class="card shadow-sm mb-4">
+                    <div class="card body">
+                        <h5 class="card-title">Reformas generales</h5>
+                        <p class="card-text">Reformas en madera, baños, pisos y acabados con calidad profesional..</p>
+                    </div>
+                </div>
+            </div>
+            <!--Tarjeta 3-->
+            <div class="col-md-4">
+                <div class="card shadow-sm mb-4">
+                    <div class="card body">
+                        <h5 class="card-title">Muebles personalizados</h5>
+                        <p class="card-text">Diseño y elaboración de muebles únicos hechos a mano.</p>
+                    </div>
+                </div>
+            </div>
+            <!--Tarjeta 4-->
+            <div class="col-md-4">
+                <div class="card shadow-sm mb-4">
+                    <div class="card body">
+                        <h5 class="card-title">Reparaciones</h5>
+                        <p class="card-text">Reparaciones en madera, baños, cocinas, pisos y acabados con calidad profesional..</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--Sección de Nosotros-->
+    <section id="nosotros" class="py-5 bg-light">
+        <div class="container">
+            <!--Titulo de la sección-->
+            <h2 class="text-center mb-4">Nosotros</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>Somos un negocio familiar con más de 15 años de experiencia en el sector de la carpintería y acabados. Nos apasiona transformar espacios con diseños funcionales y personalizados..</p>
+                    <p>>Nos destacamos por el compromiso, la calidad de nuestros trabajos y la satisfacción de nuestros clientes.</p>
+                </div>
+                <div class="col-md-6">
+                    <img src="/img/nosotros.jpg" class="img-fluid rounded shadow" alt="Imagen de nosotros">
+                </div>
+            </div> 
+        </div>    
+    </section>
+
+    <!--Sección de Contacto-->
+    <section id="contacto" class="py-5 bg-light">
+        <!--Titulo de la sección-->
+        <div class="container">
+            <h2 class="text-center mb-4">Contáctanos</h2>
+            <!--Formulario de contacto-->
+            <form>
+                <!--Asunto-->
+                <div class="row mb-3">
+                    <input type="text" class="form-control" placeholder="Asunto" required>
+                </div>
+                <!--Nombre-->
+                <div class="row mb-3">
+                    <input type="text" class="form-control" placeholder="Tu nombre" required>
+                </div>
+                <!--Correo-->
+                <div class="row mb-3">
+                    <input type="email" class="form-control" placeholder="Correo electrónico" required>
+                </div>
+                <!--Teléfono-->
+                <div class="row mb-3">
+                    <input type="tel" class="form-control" placeholder="Celular" required>
+                </div>
+                <!--Mensaje-->
+                <div class="row mb-3">
+                    <textarea  class="form-control" id="" cols="30" rows="4" placeholder="Escribe tu mensaje" required></textarea>
+                </div>
+                <!--Botón de envío-->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!--Footer-->
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2025 Carpentry SYC. 
+            <br>Desarrollado por Jhojan Chalarca Restrepo. 
+            <br>Todos los derechos reservados.</p>
     </footer>
-    </div>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript -->
     <script th:src="@{/javascript/javascript.js}"></script>
 </body>
 </html>
