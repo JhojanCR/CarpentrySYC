@@ -1,0 +1,31 @@
+<!-- Sidebar -->
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <div class="sb-sidenav-menu-heading">Principal</div>
+                    <a class="nav-link" th:href="@{/admin/dashboard}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        Dashboard
+                    </a>
+                    
+                    <div class="sb-sidenav-menu-heading">Gestión</div>
+                    <a class="nav-link" th:href="@{/admin/servicios}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-hammer"></i></div>
+                        Servicios
+                    </a>
+                    <a class="nav-link" th:href="@{/admin/proyectos}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-briefcase"></i></div>
+                        Proyectos
+                    </a>
+                    <a class="nav-link" th:href="@{/admin/contactos}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-envelope"></i></div>
+                        Contactos
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div id="layoutSidenav_content">
+        <main>
