@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head"></head>
+<body>
+    <div th:replace="fragments/header :: body"></div>
+    <div th:replace="fragments/sidebar :: *"></div>
+
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Proyectos</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a th:href="@{/admin/dashboard}">Dashboard</a></li>
+            <li class="breadcrumb-item active">Proyectos</li>
+        </ol>
+
+        <!-- Botón para agregar proyecto -->
+        <div class="mb-4">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarProyectoModal">
+                <i class="fas fa-plus me-2"></i>Agregar Proyecto
+            </button>
+        </div>
+
+        <!-- Vista de tarjetas de proyectos -->
+        <div class="row">
+            <div class="col-md-6 col-lg-4 mb-4" th:each="proyecto : ${proyectos}">
+                <div class="card shadow-sm h-100">
+                    <img th:if="${proyecto.imagenUrl}" th:src="${proyecto.imagenUrl}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Proyecto">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${proyecto.nombre}"></h5>
+                        <p class="card-text" th:text="${proyecto.descripcion}"></p>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-sm btn-warning flex-grow-1" title="Editar">
+                                <i class="fas fa-edit me-1"></i>Editar
+                            </button>
+                            <button class="btn btn-sm btn-danger flex-grow-1" title="Eliminar">
+                                <i class="fas fa-trash me-1"></i>Eliminar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${#lists.isEmpty(proyectos)}" class="col-12">
+                <div class="alert alert-info text-center py-5">
+                    <i class="fas fa-inbox fa-3x mb-3"></i>
+                    <p class="mb-0">No hay proyectos registrados</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla alternativa para vista en detalle -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <i class="fas fa-briefcase me-1"></i>
+                Listado de Proyectos
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Estado</th>
+                                <th>Fecha</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="proyecto : ${proyectos}">
+                                <td th:text="${proyecto.id}"></td>
+                                <td th:text="${proyecto.nombre}"></td>
+                                <td th:text="${#strings.abbreviate(proyecto.descripcion, 50)}"></td>
+                                <td>
+                                    <span class="badge bg-success">Completado</span>
+                                </td>
+                                <td th:text="${#dates.format(proyecto.fecha, 'dd/MM/yyyy')}"></td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#verProyectoModal" title="Ver detalles">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-warning" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-danger" title="Eliminar">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(proyectos)}">
+                                <td colspan="6" class="text-center text-muted py-4">
+                                    No hay proyectos registrados
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para agregar proyecto -->
+    <div class="modal fade" id="agregarProyectoModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Agregar Nuevo Proyecto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form th:action="@{/admin/proyectos}" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre del Proyecto</label>
+                            <input type="text" class="form-control" name="nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Descripción</label>
+                            <textarea class="form-control" name="descripcion" rows="4" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Imagen</label>
+                            <input type="file" class="form-control" name="imagenUrl" accept="image/*">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Fecha de Inicio</label>
+                            <input type="date" class="form-control" name="fechaInicio" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Estado</label>
+                            <select class="form-select" name="estado" required>
+                                <option value="En Progreso">En Progreso</option>
+                                <option value="Completado">Completado</option>
+                                <option value="Pendiente">Pendiente</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para ver proyecto -->
+    <div class="modal fade" id="verProyectoModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detalles del Proyecto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <strong>Nombre:</strong>
+                        <p id="modalNombreProyecto"></p>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Descripción:</strong>
+                        <p id="modalDescripcionProyecto" style="white-space: pre-wrap;"></p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <strong>Fecha de Inicio:</strong>
+                            <p id="modalFechaProyecto"></p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <strong>Estado:</strong>
+                            <p id="modalEstadoProyecto"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="fragments/footer :: *"></div>
+    <script th:src="@{/js/scripts.js}"></script>
+    <script th:src="@{/assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

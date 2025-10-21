@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:fragment="head">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${pageTitle} ?: 'Carpentry y Acabados SYC'">Carpentry y Acabados SYC</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
-    <link rel="stylesheet" th:href="@{/assets/fontawesome/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="sb-nav-fixed">
+<body th:fragment="body" class="sb-nav-fixed">
 
 <!-- Navbar -->
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -24,7 +25,9 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" th:href="@{/auth/login}">Iniciar sesión</a></li>
-                <li><a class="dropdown-item" th:href="@{/auth/logout}">Cerrar sesión</a></li>
+                <li><a class="dropdown-item" th:href="@{/}">Ir al sitio</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#" onclick="alert('Cerrar sesión')">Cerrar sesión</a></li>
             </ul>
         </li>
     </ul>
