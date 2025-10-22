@@ -1,46 +1,38 @@
 package com.syc.carpentry.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import java.time.LocalDateTime;
 
-//Clase MensajeContacto
+@Entity
 public class MensajeContacto {
 
-    //Atributos
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String nombre;
     private String correo;
     private String telefono;
     private String asunto;
     private String mensaje;
+    private LocalDateTime fechaEnvio;
 
-    //Constructor
-    public MensajeContacto() {}
-
-    //Constructor con parámetros
-    public MensajeContacto(String nombre, String correo, String telefono, String asunto, String mensaje) {
-        this.nombre = nombre;
-        this.correo = correo;
-        this.telefono = telefono;
-        this.asunto = asunto;
-        this.mensaje = mensaje;
-    }
-
-    //Getters y Setters
-    public String getNombre() {return nombre;}
-
-    public void setNombre(String nombre) {this.nombre = nombre;}
-    
-    public String getCorreo() {return correo;}
-
-    public void setCorreo(String correo) {this.correo = correo;}
-    
-    public String getTelefono() {return telefono;}
-    
-    public void setTelefono(String telefono) {this.telefono = telefono;}
-    
-    public String getAsunto() {return asunto;}
-    
-    public void setAsunto(String asunto) {this.asunto = asunto;}
-    
-    public String getMensaje() {return mensaje;}
-    
-    public void setMensaje(String mensaje) {this.mensaje = mensaje;}
+    // Getters y Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getCorreo() { return correo; }
+    public void setCorreo(String correo) { this.correo = correo; }
+    public String getTelefono() { return telefono; }
+    public void setTelefono(String telefono) { this.telefono = telefono; }
+    public String getAsunto() { return asunto; }
+    public void setAsunto(String asunto) { this.asunto = asunto; }
+    public String getMensaje() { return mensaje; }
+    public void setMensaje(String mensaje) { this.mensaje = mensaje; }
+    public LocalDateTime getFechaEnvio() { return fechaEnvio; }
+    public void setFechaEnvio(LocalDateTime fechaEnvio) { this.fechaEnvio = fechaEnvio; }
 }

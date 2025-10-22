@@ -9,14 +9,22 @@
     <div th:insert="~{admin/fragments/sidebar}"></div>
 
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Usuarios</h1>
+        <h1 class="mt-4">Mensajes de Contacto</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a th:href="@{/admin/dashboard}">Dashboard</a></li>
-            <li class="breadcrumb-item active">Usuarios</li>
+            <li class="breadcrumb-item active">Contacto</li>
         </ol>
 
-        <div class="alert alert-info">
-            Aquí va la gestión de usuarios.
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-envelope me-1"></i>
+                Mensajes Recibidos
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    Aquí se mostrarán los mensajes de contacto.
+                </div>
+            </div>
         </div>
     </div>
 
