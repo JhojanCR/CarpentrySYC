@@ -2,12 +2,20 @@ package com.syc.carpentry.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.syc.carpentry.model.Proyecto;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ProyectoRepository extends JpaRepository<Proyecto, Long> {
 
     // Obtener los últimos 5 proyectos ordenados por ID descendente
     List<Proyecto> findTop5ByOrderByIdDesc();
+
+    // Contar proyectos completados en un rango de fechas
+    @Query("SELECT COUNT(p) FROM Proyecto p WHERE p.estado = 'Completado' AND p.fechaInicio >= :startDate AND p.fechaInicio < :endDate")
+    Long countCompletadosByFechaInicioBetween(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
 }

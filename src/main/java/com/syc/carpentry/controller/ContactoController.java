@@ -1,22 +1,38 @@
 package com.syc.carpentry.controller;
 
 import com.syc.carpentry.model.MensajeContacto;
+import com.syc.carpentry.repository.ContactoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/contacto")
-
 public class ContactoController {
 
-    @PostMapping
-    public String recibirMensaje(@RequestBody MensajeContacto mensajeContacto){
-        System.out.println("Mensaje recibido");
-        System.out.println("Asunto: " + mensajeContacto.getAsunto());
-        System.out.println("Nombre: " + mensajeContacto.getNombre());
-        System.out.println("Correo: " + mensajeContacto.getCorreo());
-        System.out.println("Celular: " + mensajeContacto.getTelefono());
-        System.out.println("Mensaje: " + mensajeContacto.getMensaje());
+    @Autowired
+    private ContactoRepository contactoRepository;
 
-        return "Mensaje recibido correctamente.";
+    @PostMapping
+    public ResponseEntity<String> recibirMensaje(@RequestBody MensajeContacto mensajeContacto){
+        try {
+            // Establecer la fecha de envío automáticamente
+            mensajeContacto.setFechaEnvio(LocalDateTime.now());
+
+            // Guardar en la base de datos
+            contactoRepository.save(mensajeContacto);
+
+            System.out.println("Mensaje recibido y guardado en BD");
+            System.out.println("Nombre: " + mensajeContacto.getNombre());
+            System.out.println("Correo: " + mensajeContacto.getCorreo());
+            System.out.println("Asunto: " + mensajeContacto.getAsunto());
+
+            return ResponseEntity.ok("Mensaje recibido y guardado correctamente.");
+        } catch (Exception e) {
+            System.err.println("Error al guardar mensaje: " + e.getMessage());
+            return ResponseEntity.status(500).body("Error al procesar el mensaje.");
+        }
     }
 }

@@ -2,6 +2,7 @@ package com.syc.carpentry.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -13,6 +14,8 @@ public class Servicio {
     private String nombre;
     private String descripcion;
     private String imagenUrl;
+
+    private LocalDateTime fechaCreacion;
 
     // Getters y setters para tomar las variables private
 
@@ -28,5 +31,15 @@ public class Servicio {
     public String getImagenUrl() {return imagenUrl;}
     public void setImagenUrl(String imagenUrl) {this.imagenUrl = imagenUrl;}
 
+    public LocalDateTime getFechaCreacion() {return fechaCreacion;}
+    public void setFechaCreacion(LocalDateTime fechaCreacion) {this.fechaCreacion = fechaCreacion;}
+
+    // Método que se ejecuta antes de persistir para establecer la fecha automáticamente
+    @PrePersist
+    protected void onCreate() {
+        if (fechaCreacion == null) {
+            fechaCreacion = LocalDateTime.now();
+        }
+    }
 
 }

@@ -13,6 +13,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.TextStyle;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -35,6 +42,39 @@ public class AdminController {
         // Actividad reciente (últimos 5 proyectos y 5 contactos)
         model.addAttribute("proyectosRecientes", proyectoRepository.findTop5ByOrderByIdDesc());
         model.addAttribute("contactosRecientes", contactoRepository.findTop5ByOrderByFechaEnvioDesc());
+
+        // Datos para gráficos de los últimos 6 meses
+        List<String> mesesLabels = new ArrayList<>();
+        List<Long> serviciosPorMes = new ArrayList<>();
+        List<Long> proyectosPorMes = new ArrayList<>();
+
+        LocalDate hoy = LocalDate.now();
+
+        // Generar datos de los últimos 6 meses
+        for (int i = 5; i >= 0; i--) {
+            LocalDate mesActual = hoy.minusMonths(i);
+            LocalDate inicioDeMes = mesActual.withDayOfMonth(1);
+            LocalDate finDeMes = inicioDeMes.plusMonths(1);
+
+            // Nombre del mes en español
+            String nombreMes = mesActual.getMonth().getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
+            nombreMes = nombreMes.substring(0, 1).toUpperCase() + nombreMes.substring(1);
+            mesesLabels.add(nombreMes);
+
+            // Contar servicios creados en ese mes
+            LocalDateTime inicioMesDateTime = inicioDeMes.atStartOfDay();
+            LocalDateTime finMesDateTime = finDeMes.atStartOfDay();
+            Long countServicios = servicioRepository.countByFechaCreacionBetween(inicioMesDateTime, finMesDateTime);
+            serviciosPorMes.add(countServicios != null ? countServicios : 0L);
+
+            // Contar proyectos completados en ese mes
+            Long countProyectos = proyectoRepository.countCompletadosByFechaInicioBetween(inicioDeMes, finDeMes);
+            proyectosPorMes.add(countProyectos != null ? countProyectos : 0L);
+        }
+
+        model.addAttribute("mesesLabels", mesesLabels);
+        model.addAttribute("serviciosPorMes", serviciosPorMes);
+        model.addAttribute("proyectosPorMes", proyectosPorMes);
 
         return "admin/dashboard";
     }
