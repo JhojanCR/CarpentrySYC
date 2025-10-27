@@ -30,7 +30,8 @@ public class SecurityConfig {
                 // Configuración de autorización de peticiones
                 .authorizeHttpRequests(auth -> auth
                         // Rutas públicas (sin autenticación)
-                        .requestMatchers("/", "/login", "/register", "/api/**", "/styles.css", "/script.js", "/scripts.js",
+                        .requestMatchers("/", "/login", "/register", "/forgot-password", "/reset-password",
+                                "/api/**", "/styles.css", "/script.js", "/scripts.js",
                                 "/assets/**", "/public/**", "/servicios", "/proyectos", "/contacto", "/nosotros").permitAll()
 
                         // Rutas del admin requieren autenticación y rol ADMIN
