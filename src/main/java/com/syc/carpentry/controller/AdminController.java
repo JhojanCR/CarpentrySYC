@@ -9,6 +9,7 @@ import com.syc.carpentry.repository.ProyectoRepository;
 import com.syc.carpentry.repository.ServicioRepository;
 import com.syc.carpentry.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,7 @@ public class AdminController {
     @Autowired private ProyectoRepository proyectoRepository;
     @Autowired private ServicioRepository servicioRepository;
     @Autowired private ContactoRepository contactoRepository;
+    @Autowired private PasswordEncoder passwordEncoder;
 
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
@@ -132,7 +134,17 @@ public class AdminController {
 
     @PostMapping("/usuarios/guardar")
     public String guardarUsuario(@ModelAttribute Usuario usuario) {
-        // NOTA: En un proyecto real, aquí deberías encriptar la contraseña
+        // Si es un nuevo usuario o si la contraseña fue cambiada
+        if (usuario.getId() == null || (usuario.getPassword() != null && !usuario.getPassword().isEmpty())) {
+            // Encriptar la contraseña con BCrypt
+            usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+        } else {
+            // Si es una actualización sin cambio de contraseña, mantener la anterior
+            Usuario usuarioExistente = usuarioRepository.findById(usuario.getId()).orElse(null);
+            if (usuarioExistente != null) {
+                usuario.setPassword(usuarioExistente.getPassword());
+            }
+        }
         usuarioRepository.save(usuario);
         return "redirect:/admin/usuarios";
     }
