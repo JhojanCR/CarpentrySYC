@@ -26,7 +26,7 @@ public class Servicio {
     public void  setDescripcion(String descripcion) {this.descripcion = descripcion;}
 
     public String getImagenUrl() {return imagenUrl;}
-    public void setImagenUrl() {this.imagenUrl = imagenUrl;}
+    public void setImagenUrl(String imagenUrl) {this.imagenUrl = imagenUrl;}
 
 
 }
