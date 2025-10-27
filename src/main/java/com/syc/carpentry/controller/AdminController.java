@@ -25,6 +25,17 @@ public class AdminController {
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
         model.addAttribute("pageTitle", "Dashboard - Admin SYC");
+
+        // Estadísticas generales
+        model.addAttribute("serviciosCount", servicioRepository.count());
+        model.addAttribute("proyectosCount", proyectoRepository.count());
+        model.addAttribute("contactosCount", contactoRepository.count());
+        model.addAttribute("usuariosCount", usuarioRepository.count());
+
+        // Actividad reciente (últimos 5 proyectos y 5 contactos)
+        model.addAttribute("proyectosRecientes", proyectoRepository.findTop5ByOrderByIdDesc());
+        model.addAttribute("contactosRecientes", contactoRepository.findTop5ByOrderByFechaEnvioDesc());
+
         return "admin/dashboard";
     }
 

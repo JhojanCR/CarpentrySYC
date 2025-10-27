@@ -188,8 +188,8 @@
                             Actividad Reciente
                         </div>
                         <div class="card-body">
-                            <table class="table table-bordered">
-                                <thead>
+                            <table class="table table-bordered table-hover">
+                                <thead class="table-light">
                                     <tr>
                                         <th>Fecha</th>
                                         <th>Tipo</th>
@@ -198,23 +198,27 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>2025-01-20</td>
-                                        <td><span class="badge bg-primary">Servicio</span></td>
-                                        <td>Nueva solicitud de cocina integral</td>
-                                        <td><span class="badge bg-warning">Pendiente</span></td>
+                                    <!-- Proyectos recientes -->
+                                    <tr th:each="proyecto : ${proyectosRecientes}">
+                                        <td th:text="${proyecto.fechaInicio}">2025-01-20</td>
+                                        <td><span class="badge bg-warning">Proyecto</span></td>
+                                        <td th:text="${proyecto.nombre + ' - ' + proyecto.descripcion}">Proyecto descripción</td>
+                                        <td>
+                                            <span class="badge"
+                                                  th:classappend="${proyecto.estado == 'Completado'} ? 'bg-success' : (${proyecto.estado == 'En Progreso'} ? 'bg-primary' : 'bg-secondary')"
+                                                  th:text="${proyecto.estado}">Estado</span>
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <td>2025-01-19</td>
-                                        <td><span class="badge bg-success">Proyecto</span></td>
-                                        <td>Remodelación de baño completada</td>
-                                        <td><span class="badge bg-success">Completado</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2025-01-18</td>
+                                    <!-- Contactos recientes -->
+                                    <tr th:each="contacto : ${contactosRecientes}">
+                                        <td th:text="${#temporals.format(contacto.fechaEnvio, 'dd/MM/yyyy')}">2025-01-18</td>
                                         <td><span class="badge bg-info">Contacto</span></td>
-                                        <td>Nuevo mensaje de cliente potencial</td>
-                                        <td><span class="badge bg-warning">Sin leer</span></td>
+                                        <td th:text="'Mensaje de ' + ${contacto.nombre} + ': ' + ${contacto.asunto}">Mensaje</td>
+                                        <td><span class="badge bg-warning">Nuevo</span></td>
+                                    </tr>
+                                    <!-- Mensaje si no hay actividad -->
+                                    <tr th:if="${proyectosRecientes.empty && contactosRecientes.empty}">
+                                        <td colspan="4" class="text-center text-muted">No hay actividad reciente</td>
                                     </tr>
                                 </tbody>
                             </table>
