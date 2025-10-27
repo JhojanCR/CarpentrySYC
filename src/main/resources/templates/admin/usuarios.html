@@ -96,6 +96,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Nombre</th>
+                                    <th>Username</th>
                                     <th>Email</th>
                                     <th>Rol</th>
                                     <th>Acciones</th>
@@ -103,11 +104,12 @@
                             </thead>
                             <tbody>
                                 <tr th:if="${usuarios.empty}">
-                                    <td colspan="5" class="text-center text-muted">No hay usuarios registrados</td>
+                                    <td colspan="6" class="text-center text-muted">No hay usuarios registrados</td>
                                 </tr>
                                 <tr th:each="usuario : ${usuarios}">
                                     <td th:text="${usuario.id}">1</td>
                                     <td th:text="${usuario.nombre}">Juan Pérez</td>
+                                    <td th:text="${usuario.username}">juanp</td>
                                     <td th:text="${usuario.email}">juan@example.com</td>
                                     <td>
                                         <span class="badge"
@@ -118,7 +120,7 @@
                                         <button class="btn btn-sm btn-warning"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#modalEditarUsuario"
-                                                th:attr="data-id=${usuario.id}, data-nombre=${usuario.nombre}, data-email=${usuario.email}, data-rol=${usuario.rol}">
+                                                th:attr="data-id=${usuario.id}, data-nombre=${usuario.nombre}, data-username=${usuario.username}, data-email=${usuario.email}, data-rol=${usuario.rol}">
                                             <i class="fas fa-edit"></i>
                                         </button>
                                         <a th:href="@{/admin/usuarios/eliminar/{id}(id=${usuario.id})}"
@@ -164,6 +166,11 @@
                         <input type="text" class="form-control" th:field="*{nombre}" required>
                     </div>
                     <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-control" th:field="*{username}" required minlength="3">
+                        <small class="form-text text-muted">Nombre de usuario único (mínimo 3 caracteres)</small>
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label">Email</label>
                         <input type="email" class="form-control" th:field="*{email}" required>
                     </div>
@@ -206,6 +213,11 @@
                         <input type="text" class="form-control" name="nombre" id="editNombre" required>
                     </div>
                     <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-control" name="username" id="editUsername" required minlength="3">
+                        <small class="form-text text-muted">Nombre de usuario único</small>
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label">Email</label>
                         <input type="email" class="form-control" name="email" id="editEmail" required>
                     </div>
@@ -243,6 +255,7 @@
                 var button = event.relatedTarget;
                 document.getElementById('editId').value = button.getAttribute('data-id');
                 document.getElementById('editNombre').value = button.getAttribute('data-nombre');
+                document.getElementById('editUsername').value = button.getAttribute('data-username');
                 document.getElementById('editEmail').value = button.getAttribute('data-email');
                 document.getElementById('editRol').value = button.getAttribute('data-rol');
                 // Limpiar el campo de contraseña
