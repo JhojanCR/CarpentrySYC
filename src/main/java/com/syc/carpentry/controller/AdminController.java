@@ -134,17 +134,14 @@ public class AdminController {
 
     @PostMapping("/usuarios/guardar")
     public String guardarUsuario(@ModelAttribute Usuario usuario) {
-        // Si es un nuevo usuario o si la contraseña fue cambiada
-        if (usuario.getId() == null || (usuario.getPassword() != null && !usuario.getPassword().isEmpty())) {
-            // Encriptar la contraseña con BCrypt
-            usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
-        } else {
-            // Si es una actualización sin cambio de contraseña, mantener la anterior
+        // Si es una actualización sin cambio de contraseña, mantener la anterior
+        if (usuario.getId() != null && (usuario.getPassword() == null || usuario.getPassword().isEmpty())) {
             Usuario usuarioExistente = usuarioRepository.findById(usuario.getId()).orElse(null);
             if (usuarioExistente != null) {
                 usuario.setPassword(usuarioExistente.getPassword());
             }
         }
+        // Guardar contraseña en texto plano (sin encriptación)
         usuarioRepository.save(usuario);
         return "redirect:/admin/usuarios";
     }

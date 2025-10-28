@@ -102,9 +102,9 @@ public class PasswordResetService {
             return false;
         }
 
-        // Actualizar la contraseña del usuario
+        // Actualizar la contraseña del usuario (texto plano, sin encriptación)
         Usuario usuario = resetToken.getUsuario();
-        usuario.setPassword(passwordEncoder.encode(newPassword));
+        usuario.setPassword(newPassword);
         usuarioRepository.save(usuario);
 
         // Marcar el token como usado
