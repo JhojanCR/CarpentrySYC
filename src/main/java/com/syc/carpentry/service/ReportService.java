@@ -1,17 +1,36 @@
 package com.syc.carpentry.service;
 
-import com.itextpdf.text.*;
+// Imports de iText para PDF
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+
+// Imports de Apache POI para Excel
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+// Imports del proyecto
 import com.syc.carpentry.model.MensajeContacto;
 import com.syc.carpentry.model.Proyecto;
 import com.syc.carpentry.model.Servicio;
 import com.syc.carpentry.repository.ContactoRepository;
 import com.syc.carpentry.repository.ProyectoRepository;
 import com.syc.carpentry.repository.ServicioRepository;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -70,14 +89,14 @@ public class ReportService {
         document.open();
 
         // Título
-        Font titleFont = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD);
+        com.itextpdf.text.Font titleFont = new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 18, com.itextpdf.text.Font.BOLD);
         Paragraph title = new Paragraph("Reporte de Servicios - " + getPeriodoTexto(periodo), titleFont);
         title.setAlignment(Element.ALIGN_CENTER);
         title.setSpacingAfter(20);
         document.add(title);
 
         // Fecha de generación
-        Font dateFont = new Font(Font.FontFamily.HELVETICA, 10, Font.ITALIC);
+        com.itextpdf.text.Font dateFont = new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 10, com.itextpdf.text.Font.ITALIC);
         Paragraph date = new Paragraph("Generado el: " + LocalDateTime.now().format(DATE_TIME_FORMATTER), dateFont);
         date.setAlignment(Element.ALIGN_RIGHT);
         date.setSpacingAfter(20);
@@ -104,7 +123,7 @@ public class ReportService {
 
         // Total
         Paragraph total = new Paragraph("\nTotal de servicios: " + servicios.size(),
-            new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD));
+            new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 12, com.itextpdf.text.Font.BOLD));
         total.setSpacingBefore(20);
         document.add(total);
 
@@ -184,14 +203,14 @@ public class ReportService {
         document.open();
 
         // Título
-        Font titleFont = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD);
+        com.itextpdf.text.Font titleFont = new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 18, com.itextpdf.text.Font.BOLD);
         Paragraph title = new Paragraph("Reporte de Proyectos - " + getPeriodoTexto(periodo), titleFont);
         title.setAlignment(Element.ALIGN_CENTER);
         title.setSpacingAfter(20);
         document.add(title);
 
         // Fecha de generación
-        Font dateFont = new Font(Font.FontFamily.HELVETICA, 10, Font.ITALIC);
+        com.itextpdf.text.Font dateFont = new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 10, com.itextpdf.text.Font.ITALIC);
         Paragraph date = new Paragraph("Generado el: " + LocalDateTime.now().format(DATE_TIME_FORMATTER), dateFont);
         date.setAlignment(Element.ALIGN_RIGHT);
         date.setSpacingAfter(20);
@@ -219,7 +238,7 @@ public class ReportService {
 
         // Total
         Paragraph total = new Paragraph("\nTotal de proyectos: " + proyectos.size(),
-            new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD));
+            new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 12, com.itextpdf.text.Font.BOLD));
         total.setSpacingBefore(20);
         document.add(total);
 
@@ -299,14 +318,14 @@ public class ReportService {
         document.open();
 
         // Título
-        Font titleFont = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD);
+        com.itextpdf.text.Font titleFont = new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 18, com.itextpdf.text.Font.BOLD);
         Paragraph title = new Paragraph("Reporte de Contactos - " + getPeriodoTexto(periodo), titleFont);
         title.setAlignment(Element.ALIGN_CENTER);
         title.setSpacingAfter(20);
         document.add(title);
 
         // Fecha de generación
-        Font dateFont = new Font(Font.FontFamily.HELVETICA, 10, Font.ITALIC);
+        com.itextpdf.text.Font dateFont = new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 10, com.itextpdf.text.Font.ITALIC);
         Paragraph date = new Paragraph("Generado el: " + LocalDateTime.now().format(DATE_TIME_FORMATTER), dateFont);
         date.setAlignment(Element.ALIGN_RIGHT);
         date.setSpacingAfter(20);
@@ -335,7 +354,7 @@ public class ReportService {
 
         // Total
         Paragraph total = new Paragraph("\nTotal de contactos: " + contactos.size(),
-            new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD));
+            new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 12, com.itextpdf.text.Font.BOLD));
         total.setSpacingBefore(20);
         document.add(total);
 
@@ -430,7 +449,7 @@ public class ReportService {
     }
 
     private void addTableHeader(PdfPTable table, String[] headers) {
-        Font headerFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.WHITE);
+        com.itextpdf.text.Font headerFont = new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 12, com.itextpdf.text.Font.BOLD, BaseColor.WHITE);
         for (String header : headers) {
             PdfPCell cell = new PdfPCell(new Phrase(header, headerFont));
             cell.setBackgroundColor(BaseColor.DARK_GRAY);
@@ -442,7 +461,7 @@ public class ReportService {
 
     private CellStyle createHeaderStyle(Workbook workbook) {
         CellStyle style = workbook.createCellStyle();
-        Font font = workbook.createFont();
+        org.apache.poi.ss.usermodel.Font font = workbook.createFont();
         font.setBold(true);
         font.setFontHeightInPoints((short) 12);
         style.setFont(font);
