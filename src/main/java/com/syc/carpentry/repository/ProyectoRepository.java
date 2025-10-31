@@ -18,4 +18,8 @@ public interface ProyectoRepository extends JpaRepository<Proyecto, Long> {
     @Query("SELECT COUNT(p) FROM Proyecto p WHERE p.estado = 'Completado' AND p.fechaInicio >= :startDate AND p.fechaInicio < :endDate")
     Long countCompletadosByFechaInicioBetween(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
+    // Obtener lista de proyectos en un rango de fechas
+    @Query("SELECT p FROM Proyecto p WHERE p.fechaInicio >= :startDate AND p.fechaInicio < :endDate ORDER BY p.fechaInicio DESC")
+    List<Proyecto> findByFechaInicioBetween(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+
 }

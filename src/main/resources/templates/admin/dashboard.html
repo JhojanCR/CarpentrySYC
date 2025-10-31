@@ -187,6 +187,140 @@
                         </div>
                     </div>
 
+                    <!-- Sección de Exportar Reportes -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-success text-white">
+                            <i class="fas fa-file-download me-1"></i>
+                            Exportar Reportes Históricos
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <!-- Reportes de Servicios -->
+                                <div class="col-md-4 mb-3">
+                                    <div class="card h-100 border-primary">
+                                        <div class="card-body text-center">
+                                            <i class="fas fa-hammer fa-3x text-primary mb-3"></i>
+                                            <h5 class="card-title">Servicios</h5>
+                                            <p class="card-text small text-muted">Exporta el historial de servicios creados</p>
+                                            <div class="btn-group mb-2" role="group">
+                                                <a th:href="@{/admin/reportes/servicios/pdf(periodo='dia')}"
+                                                   class="btn btn-sm btn-outline-danger">
+                                                    <i class="fas fa-file-pdf me-1"></i>Hoy PDF
+                                                </a>
+                                                <a th:href="@{/admin/reportes/servicios/excel(periodo='dia')}"
+                                                   class="btn btn-sm btn-outline-success">
+                                                    <i class="fas fa-file-excel me-1"></i>Hoy Excel
+                                                </a>
+                                            </div>
+                                            <div class="btn-group mb-2" role="group">
+                                                <a th:href="@{/admin/reportes/servicios/pdf(periodo='semana')}"
+                                                   class="btn btn-sm btn-outline-danger">
+                                                    <i class="fas fa-file-pdf me-1"></i>Semana PDF
+                                                </a>
+                                                <a th:href="@{/admin/reportes/servicios/excel(periodo='semana')}"
+                                                   class="btn btn-sm btn-outline-success">
+                                                    <i class="fas fa-file-excel me-1"></i>Semana Excel
+                                                </a>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <a th:href="@{/admin/reportes/servicios/pdf(periodo='mes')}"
+                                                   class="btn btn-sm btn-outline-danger">
+                                                    <i class="fas fa-file-pdf me-1"></i>Mes PDF
+                                                </a>
+                                                <a th:href="@{/admin/reportes/servicios/excel(periodo='mes')}"
+                                                   class="btn btn-sm btn-outline-success">
+                                                    <i class="fas fa-file-excel me-1"></i>Mes Excel
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Reportes de Proyectos -->
+                                <div class="col-md-4 mb-3">
+                                    <div class="card h-100 border-warning">
+                                        <div class="card-body text-center">
+                                            <i class="fas fa-briefcase fa-3x text-warning mb-3"></i>
+                                            <h5 class="card-title">Proyectos</h5>
+                                            <p class="card-text small text-muted">Exporta el historial de proyectos realizados</p>
+                                            <div class="btn-group mb-2" role="group">
+                                                <a th:href="@{/admin/reportes/proyectos/pdf(periodo='dia')}"
+                                                   class="btn btn-sm btn-outline-danger">
+                                                    <i class="fas fa-file-pdf me-1"></i>Hoy PDF
+                                                </a>
+                                                <a th:href="@{/admin/reportes/proyectos/excel(periodo='dia')}"
+                                                   class="btn btn-sm btn-outline-success">
+                                                    <i class="fas fa-file-excel me-1"></i>Hoy Excel
+                                                </a>
+                                            </div>
+                                            <div class="btn-group mb-2" role="group">
+                                                <a th:href="@{/admin/reportes/proyectos/pdf(periodo='semana')}"
+                                                   class="btn btn-sm btn-outline-danger">
+                                                    <i class="fas fa-file-pdf me-1"></i>Semana PDF
+                                                </a>
+                                                <a th:href="@{/admin/reportes/proyectos/excel(periodo='semana')}"
+                                                   class="btn btn-sm btn-outline-success">
+                                                    <i class="fas fa-file-excel me-1"></i>Semana Excel
+                                                </a>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <a th:href="@{/admin/reportes/proyectos/pdf(periodo='mes')}"
+                                                   class="btn btn-sm btn-outline-danger">
+                                                    <i class="fas fa-file-pdf me-1"></i>Mes PDF
+                                                </a>
+                                                <a th:href="@{/admin/reportes/proyectos/excel(periodo='mes')}"
+                                                   class="btn btn-sm btn-outline-success">
+                                                    <i class="fas fa-file-excel me-1"></i>Mes Excel
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Reportes de Contactos -->
+                                <div class="col-md-4 mb-3">
+                                    <div class="card h-100 border-info">
+                                        <div class="card-body text-center">
+                                            <i class="fas fa-envelope fa-3x text-info mb-3"></i>
+                                            <h5 class="card-title">Contactos</h5>
+                                            <p class="card-text small text-muted">Exporta los mensajes de contacto recibidos</p>
+                                            <div class="btn-group mb-2" role="group">
+                                                <a th:href="@{/admin/reportes/contactos/pdf(periodo='dia')}"
+                                                   class="btn btn-sm btn-outline-danger">
+                                                    <i class="fas fa-file-pdf me-1"></i>Hoy PDF
+                                                </a>
+                                                <a th:href="@{/admin/reportes/contactos/excel(periodo='dia')}"
+                                                   class="btn btn-sm btn-outline-success">
+                                                    <i class="fas fa-file-excel me-1"></i>Hoy Excel
+                                                </a>
+                                            </div>
+                                            <div class="btn-group mb-2" role="group">
+                                                <a th:href="@{/admin/reportes/contactos/pdf(periodo='semana')}"
+                                                   class="btn btn-sm btn-outline-danger">
+                                                    <i class="fas fa-file-pdf me-1"></i>Semana PDF
+                                                </a>
+                                                <a th:href="@{/admin/reportes/contactos/excel(periodo='semana')}"
+                                                   class="btn btn-sm btn-outline-success">
+                                                    <i class="fas fa-file-excel me-1"></i>Semana Excel
+                                                </a>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                <a th:href="@{/admin/reportes/contactos/pdf(periodo='mes')}"
+                                                   class="btn btn-sm btn-outline-danger">
+                                                    <i class="fas fa-file-pdf me-1"></i>Mes PDF
+                                                </a>
+                                                <a th:href="@{/admin/reportes/contactos/excel(periodo='mes')}"
+                                                   class="btn btn-sm btn-outline-success">
+                                                    <i class="fas fa-file-excel me-1"></i>Mes Excel
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Tabla de actividad reciente -->
                     <div class="card mb-4">
                         <div class="card-header">
