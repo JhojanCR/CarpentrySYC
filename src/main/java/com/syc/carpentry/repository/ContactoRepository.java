@@ -18,4 +18,8 @@ public interface ContactoRepository extends JpaRepository<MensajeContacto, Long>
     @Query("SELECT c FROM MensajeContacto c WHERE c.fechaEnvio >= :startDate AND c.fechaEnvio < :endDate ORDER BY c.fechaEnvio DESC")
     List<MensajeContacto> findByFechaEnvioBetween(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 
+    // Buscar contactos por nombre o asunto (búsqueda parcial, ignora mayúsculas/minúsculas)
+    @Query("SELECT c FROM MensajeContacto c WHERE LOWER(c.nombre) LIKE LOWER(CONCAT('%', :busqueda, '%')) OR LOWER(c.asunto) LIKE LOWER(CONCAT('%', :busqueda, '%'))")
+    List<MensajeContacto> buscarPorNombreOAsunto(@Param("busqueda") String busqueda);
+
 }

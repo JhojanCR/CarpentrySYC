@@ -83,9 +83,28 @@ public class AdminController {
 
     // --- CRUD de Servicios ---
     @GetMapping("/servicios")
-    public String servicios(Model model) {
+    public String servicios(@RequestParam(required = false) String busqueda, Model model) {
         model.addAttribute("pageTitle", "Servicios - Admin SYC");
-        model.addAttribute("servicios", servicioRepository.findAll());
+
+        // Si hay búsqueda, filtrar; si no, mostrar todos
+        List<Servicio> servicios;
+        if (busqueda != null && !busqueda.trim().isEmpty()) {
+            // Intentar buscar por ID si es numérico
+            try {
+                Long id = Long.parseLong(busqueda.trim());
+                servicios = servicioRepository.findById(id)
+                    .map(List::of)  // Convierte Optional<Servicio> en List<Servicio>
+                    .orElse(List.of());  // Si no existe, lista vacía
+            } catch (NumberFormatException e) {
+                // Si no es numérico, buscar por nombre
+                servicios = servicioRepository.buscarPorNombre(busqueda);
+            }
+            model.addAttribute("busqueda", busqueda);  // Para mantener el valor en el input
+        } else {
+            servicios = servicioRepository.findAll();
+        }
+
+        model.addAttribute("servicios", servicios);
         model.addAttribute("servicioNuevo", new Servicio());
         return "admin/servicios";
     }
@@ -104,9 +123,28 @@ public class AdminController {
 
     // --- CRUD de Proyectos ---
     @GetMapping("/proyectos")
-    public String proyectos(Model model) {
+    public String proyectos(@RequestParam(required = false) String busqueda, Model model) {
         model.addAttribute("pageTitle", "Proyectos - Admin SYC");
-        model.addAttribute("proyectos", proyectoRepository.findAll());
+
+        // Si hay búsqueda, filtrar; si no, mostrar todos
+        List<Proyecto> proyectos;
+        if (busqueda != null && !busqueda.trim().isEmpty()) {
+            // Intentar buscar por ID si es numérico
+            try {
+                Long id = Long.parseLong(busqueda.trim());
+                proyectos = proyectoRepository.findById(id)
+                    .map(List::of)
+                    .orElse(List.of());
+            } catch (NumberFormatException e) {
+                // Si no es numérico, buscar por nombre
+                proyectos = proyectoRepository.buscarPorNombre(busqueda);
+            }
+            model.addAttribute("busqueda", busqueda);
+        } else {
+            proyectos = proyectoRepository.findAll();
+        }
+
+        model.addAttribute("proyectos", proyectos);
         model.addAttribute("proyectoNuevo", new Proyecto());
         return "admin/proyectos";
     }
@@ -154,9 +192,28 @@ public class AdminController {
 
     // --- Gestión de Contactos (Leer y Eliminar) ---
     @GetMapping("/contactos")
-    public String contactos(Model model) {
+    public String contactos(@RequestParam(required = false) String busqueda, Model model) {
         model.addAttribute("pageTitle", "Contactos - Admin SYC");
-        model.addAttribute("contactos", contactoRepository.findAll());
+
+        // Si hay búsqueda, filtrar; si no, mostrar todos
+        List<MensajeContacto> contactos;
+        if (busqueda != null && !busqueda.trim().isEmpty()) {
+            // Intentar buscar por ID si es numérico
+            try {
+                Long id = Long.parseLong(busqueda.trim());
+                contactos = contactoRepository.findById(id)
+                    .map(List::of)
+                    .orElse(List.of());
+            } catch (NumberFormatException e) {
+                // Si no es numérico, buscar por nombre o asunto
+                contactos = contactoRepository.buscarPorNombreOAsunto(busqueda);
+            }
+            model.addAttribute("busqueda", busqueda);
+        } else {
+            contactos = contactoRepository.findAll();
+        }
+
+        model.addAttribute("contactos", contactos);
         return "admin/contactos";
     }
     

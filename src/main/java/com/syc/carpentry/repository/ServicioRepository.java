@@ -18,4 +18,11 @@ public interface ServicioRepository extends JpaRepository<Servicio, Long> {
     @Query("SELECT s FROM Servicio s WHERE s.fechaCreacion >= :startDate AND s.fechaCreacion < :endDate ORDER BY s.fechaCreacion DESC")
     List<Servicio> findByFechaCreacionBetween(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 
+    // Buscar servicios por nombre (búsqueda parcial, ignora mayúsculas/minúsculas)
+    @Query("SELECT s FROM Servicio s WHERE LOWER(s.nombre) LIKE LOWER(CONCAT('%', :busqueda, '%'))")
+    List<Servicio> buscarPorNombre(@Param("busqueda") String busqueda);
+
+    // Buscar servicio por ID exacto
+    // Ya existe findById() heredado de JpaRepository, pero lo dejamos explícito para claridad
+
 }

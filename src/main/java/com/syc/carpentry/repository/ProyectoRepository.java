@@ -22,4 +22,8 @@ public interface ProyectoRepository extends JpaRepository<Proyecto, Long> {
     @Query("SELECT p FROM Proyecto p WHERE p.fechaInicio >= :startDate AND p.fechaInicio < :endDate ORDER BY p.fechaInicio DESC")
     List<Proyecto> findByFechaInicioBetween(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
+    // Buscar proyectos por nombre (búsqueda parcial, ignora mayúsculas/minúsculas)
+    @Query("SELECT p FROM Proyecto p WHERE LOWER(p.nombre) LIKE LOWER(CONCAT('%', :busqueda, '%'))")
+    List<Proyecto> buscarPorNombre(@Param("busqueda") String busqueda);
+
 }
