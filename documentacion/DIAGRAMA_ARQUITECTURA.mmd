@@ -1,0 +1,89 @@
+graph TB
+    subgraph "NAVEGADOR (Cliente)"
+        Browser[Navegador Web<br/>HTML/CSS/JS]
+    end
+
+    subgraph "SPRING BOOT APPLICATION"
+        subgraph "Capa de Presentación (View)"
+            Thymeleaf[Thymeleaf Templates<br/>22 archivos HTML]
+            Static[Recursos Estáticos<br/>CSS, JS, Imágenes]
+        end
+
+        subgraph "Capa de Control (Controllers)"
+            PaginasCtrl[PaginasController<br/>Páginas públicas]
+            AdminCtrl[AdminController<br/>Panel admin]
+            AuthCtrl[AuthController<br/>Autenticación]
+            UsuarioCtrl[UsuarioController<br/>Registro]
+            ContactoCtrl[ContactoController<br/>REST API]
+        end
+
+        subgraph "Capa de Servicios (Business Logic)"
+            ServicioSvc[ServicioService<br/>Lógica de negocio]
+        end
+
+        subgraph "Capa de Persistencia (Repositories)"
+            UsuarioRepo[(UsuarioRepository)]
+            ServicioRepo[(ServicioRepository)]
+            ProyectoRepo[(ProyectoRepository)]
+            ContactoRepo[(ContactoRepository)]
+        end
+
+        subgraph "Capa de Modelo (Entities)"
+            UsuarioEntity[Usuario]
+            ServicioEntity[Servicio]
+            ProyectoEntity[Proyecto]
+            MensajeEntity[MensajeContacto]
+        end
+
+        subgraph "Configuración"
+            SecurityCfg[SecurityConfig<br/>Spring Security]
+        end
+    end
+
+    subgraph "BASE DE DATOS"
+        MySQL[(MySQL 8<br/>ecommerce_syc)]
+    end
+
+    %% Flujo de datos
+    Browser <-->|HTTP/REST| PaginasCtrl
+    Browser <-->|HTTP/REST| AdminCtrl
+    Browser <-->|HTTP/REST| AuthCtrl
+    Browser <-->|HTTP/REST| UsuarioCtrl
+    Browser <-->|HTTP/REST| ContactoCtrl
+
+    PaginasCtrl --> Thymeleaf
+    AdminCtrl --> Thymeleaf
+    AuthCtrl --> Thymeleaf
+    UsuarioCtrl --> Thymeleaf
+
+    Thymeleaf --> Static
+
+    PaginasCtrl --> ServicioRepo
+    PaginasCtrl --> ProyectoRepo
+
+    AdminCtrl --> UsuarioRepo
+    AdminCtrl --> ServicioRepo
+    AdminCtrl --> ProyectoRepo
+    AdminCtrl --> ContactoRepo
+
+    UsuarioCtrl --> UsuarioRepo
+
+    ServicioSvc --> ServicioRepo
+
+    UsuarioRepo -->|JPA/Hibernate| MySQL
+    ServicioRepo -->|JPA/Hibernate| MySQL
+    ProyectoRepo -->|JPA/Hibernate| MySQL
+    ContactoRepo -->|JPA/Hibernate| MySQL
+
+    UsuarioRepo -.->|gestiona| UsuarioEntity
+    ServicioRepo -.->|gestiona| ServicioEntity
+    ProyectoRepo -.->|gestiona| ProyectoEntity
+    ContactoRepo -.->|gestiona| MensajeEntity
+
+    SecurityCfg -.->|protege| AdminCtrl
+    SecurityCfg -.->|protege| AuthCtrl
+
+    style Browser fill:#e1f5ff
+    style MySQL fill:#ffe1e1
+    style SecurityCfg fill:#fff5e1
+    style Thymeleaf fill:#e1ffe1

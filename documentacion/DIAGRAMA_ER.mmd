@@ -1,0 +1,34 @@
+erDiagram
+    USUARIO {
+        BIGINT id PK "AUTO_INCREMENT"
+        VARCHAR nombre "NOT NULL"
+        VARCHAR email UK "UNIQUE, NOT NULL"
+        VARCHAR password "NOT NULL"
+        VARCHAR rol "ADMIN, USER"
+    }
+
+    SERVICIO {
+        BIGINT id PK "AUTO_INCREMENT"
+        VARCHAR nombre "NOT NULL"
+        TEXT descripcion
+        VARCHAR imagenUrl
+    }
+
+    PROYECTO {
+        BIGINT id PK "AUTO_INCREMENT"
+        VARCHAR nombre "NOT NULL"
+        TEXT descripcion
+        VARCHAR imagenUrl
+        DATE fechaInicio
+        VARCHAR estado "Activo, Completado"
+    }
+
+    MENSAJE_CONTACTO {
+        BIGINT id PK "AUTO_INCREMENT"
+        VARCHAR nombre "NOT NULL"
+        VARCHAR correo "NOT NULL"
+        VARCHAR telefono
+        VARCHAR asunto
+        TEXT mensaje
+        DATETIME fechaEnvio
+    }

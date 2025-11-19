@@ -1,0 +1,79 @@
+graph TB
+    %% Actores
+    Visitante[👤 Visitante Anónimo]
+    Usuario[👤 Usuario Registrado]
+    Admin[👤 Administrador]
+
+    %% Casos de uso públicos
+    VerInicio[Ver página de inicio]
+    VerServicios[Ver catálogo de servicios]
+    VerNosotros[Ver información de la empresa]
+    EnviarContacto[Enviar mensaje de contacto]
+    VerProyectos[Ver proyectos realizados]
+
+    %% Casos de uso de autenticación
+    Registrarse[Registrarse en el sistema]
+    IniciarSesion[Iniciar sesión]
+    RecuperarPassword[Recuperar contraseña]
+
+    %% Casos de uso administrativos
+    VerDashboard[Ver dashboard]
+    GestionarServicios[Gestionar servicios]
+    GestionarProyectos[Gestionar proyectos]
+    GestionarUsuarios[Gestionar usuarios]
+    GestionarContactos[Gestionar mensajes de contacto]
+
+    CrearServicio[Crear servicio]
+    EditarServicio[Editar servicio]
+    EliminarServicio[Eliminar servicio]
+
+    CrearProyecto[Crear proyecto]
+    EditarProyecto[Editar proyecto]
+    EliminarProyecto[Eliminar proyecto]
+
+    CrearUsuario[Crear usuario]
+    EditarUsuario[Editar usuario]
+    EliminarUsuario[Eliminar usuario]
+
+    VerContacto[Ver mensaje de contacto]
+    EliminarContacto[Eliminar mensaje]
+
+    %% Relaciones Visitante
+    Visitante --> VerInicio
+    Visitante --> VerServicios
+    Visitante --> VerNosotros
+    Visitante --> EnviarContacto
+    Visitante --> VerProyectos
+    Visitante --> Registrarse
+    Visitante --> IniciarSesion
+    Visitante --> RecuperarPassword
+
+    %% Relaciones Usuario
+    Usuario --> VerInicio
+    Usuario --> VerServicios
+    Usuario --> VerNosotros
+    Usuario --> EnviarContacto
+    Usuario --> VerProyectos
+
+    %% Relaciones Administrador (hereda de Usuario)
+    Admin --> VerDashboard
+    Admin --> GestionarServicios
+    Admin --> GestionarProyectos
+    Admin --> GestionarUsuarios
+    Admin --> GestionarContactos
+
+    %% Sub-casos de uso
+    GestionarServicios --> CrearServicio
+    GestionarServicios --> EditarServicio
+    GestionarServicios --> EliminarServicio
+
+    GestionarProyectos --> CrearProyecto
+    GestionarProyectos --> EditarProyecto
+    GestionarProyectos --> EliminarProyecto
+
+    GestionarUsuarios --> CrearUsuario
+    GestionarUsuarios --> EditarUsuario
+    GestionarUsuarios --> EliminarUsuario
+
+    GestionarContactos --> VerContacto
+    GestionarContactos --> EliminarContacto

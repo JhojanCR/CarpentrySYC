@@ -1,0 +1,218 @@
+classDiagram
+    %% ========== CAPA DE MODELO (ENTIDADES) ==========
+    class Usuario {
+        -Long id
+        -String nombre
+        -String email
+        -String password
+        -String rol
+        +Usuario()
+        +getId() Long
+        +setId(Long) void
+        +getNombre() String
+        +setNombre(String) void
+        +getEmail() String
+        +setEmail(String) void
+        +getPassword() String
+        +setPassword(String) void
+        +getRol() String
+        +setRol(String) void
+    }
+
+    class Servicio {
+        -Long id
+        -String nombre
+        -String descripcion
+        -String imagenUrl
+        +Servicio()
+        +getId() Long
+        +setId(Long) void
+        +getNombre() String
+        +setNombre(String) void
+        +getDescripcion() String
+        +setDescripcion(String) void
+        +getImagenUrl() String
+        +setImagenUrl(String) void
+    }
+
+    class Proyecto {
+        -Long id
+        -String nombre
+        -String descripcion
+        -String imagenUrl
+        -LocalDate fechaInicio
+        -String estado
+        +Proyecto()
+        +getId() Long
+        +setId(Long) void
+        +getNombre() String
+        +setNombre(String) void
+        +getDescripcion() String
+        +setDescripcion(String) void
+        +getImagenUrl() String
+        +setImagenUrl(String) void
+        +getFechaInicio() LocalDate
+        +setFechaInicio(LocalDate) void
+        +getEstado() String
+        +setEstado(String) void
+    }
+
+    class MensajeContacto {
+        -Long id
+        -String nombre
+        -String correo
+        -String telefono
+        -String asunto
+        -String mensaje
+        -LocalDateTime fechaEnvio
+        +MensajeContacto()
+        +getId() Long
+        +setId(Long) void
+        +getNombre() String
+        +setNombre(String) void
+        +getCorreo() String
+        +setCorreo(String) void
+        +getTelefono() String
+        +setTelefono(String) void
+        +getAsunto() String
+        +setAsunto(String) void
+        +getMensaje() String
+        +setMensaje(String) void
+        +getFechaEnvio() LocalDateTime
+        +setFechaEnvio(LocalDateTime) void
+    }
+
+    %% ========== CAPA DE REPOSITORIO ==========
+    class UsuarioRepository {
+        <<interface>>
+        +findByEmail(String) Optional~Usuario~
+        +findAll() List~Usuario~
+        +save(Usuario) Usuario
+        +deleteById(Long) void
+    }
+
+    class ServicioRepository {
+        <<interface>>
+        +findAll() List~Servicio~
+        +save(Servicio) Servicio
+        +findById(Long) Optional~Servicio~
+        +deleteById(Long) void
+    }
+
+    class ProyectoRepository {
+        <<interface>>
+        +findAll() List~Proyecto~
+        +save(Proyecto) Proyecto
+        +findById(Long) Optional~Proyecto~
+        +deleteById(Long) void
+    }
+
+    class ContactoRepository {
+        <<interface>>
+        +findAll() List~MensajeContacto~
+        +save(MensajeContacto) MensajeContacto
+        +deleteById(Long) void
+    }
+
+    %% ========== CAPA DE SERVICIO ==========
+    class ServicioService {
+        -ServicioRepository servicioRepository
+        +ServicioService(ServicioRepository)
+        +listarTodos() List~Servicio~
+        +guardar(Servicio) Servicio
+        +buscarPorId(Long) Servicio
+        +eliminar(Long) void
+    }
+
+    %% ========== CAPA DE CONTROLADORES ==========
+    class PaginasController {
+        -ServicioRepository servicioRepository
+        -ProyectoRepository proyectoRepository
+        +PaginasController(ServicioRepository, ProyectoRepository)
+        +inicio(Model) String
+        +nosotros(Model) String
+        +servicios(Model) String
+        +contacto() String
+    }
+
+    class AdminController {
+        -ServicioRepository servicioRepository
+        -ProyectoRepository proyectoRepository
+        -UsuarioRepository usuarioRepository
+        -ContactoRepository contactoRepository
+        +AdminController(...)
+        +dashboard(Model) String
+        +listarServicios(Model) String
+        +guardarServicio(Servicio) String
+        +eliminarServicio(Long) String
+        +listarProyectos(Model) String
+        +guardarProyecto(Proyecto) String
+        +eliminarProyecto(Long) String
+        +listarUsuarios(Model) String
+        +guardarUsuario(Usuario) String
+        +eliminarUsuario(Long) String
+        +listarContactos(Model) String
+        +eliminarContacto(Long) String
+    }
+
+    class UsuarioController {
+        -UsuarioRepository usuarioRepository
+        +UsuarioController(UsuarioRepository)
+        +mostrarLogin() String
+        +mostrarRegistro() String
+        +registrarUsuario(Usuario, Model) String
+    }
+
+    class ContactoController {
+        +recibirMensaje(MensajeContacto) String
+    }
+
+    class AuthController {
+        +login() String
+        +register() String
+        +password() String
+    }
+
+    %% ========== CONFIGURACIÓN ==========
+    class SecurityConfig {
+        +filterChain(HttpSecurity) SecurityFilterChain
+        +passwordEncoder() PasswordEncoder
+    }
+
+    class CarpentryApplication {
+        +main(String[]) void
+    }
+
+    %% ========== RELACIONES ==========
+    UsuarioRepository ..|> JpaRepository
+    ServicioRepository ..|> JpaRepository
+    ProyectoRepository ..|> JpaRepository
+    ContactoRepository ..|> JpaRepository
+
+    ServicioService --> ServicioRepository : usa
+
+    PaginasController --> ServicioRepository : usa
+    PaginasController --> ProyectoRepository : usa
+
+    AdminController --> ServicioRepository : usa
+    AdminController --> ProyectoRepository : usa
+    AdminController --> UsuarioRepository : usa
+    AdminController --> ContactoRepository : usa
+
+    UsuarioController --> UsuarioRepository : usa
+
+    UsuarioRepository ..> Usuario : gestiona
+    ServicioRepository ..> Servicio : gestiona
+    ProyectoRepository ..> Proyecto : gestiona
+    ContactoRepository ..> MensajeContacto : gestiona
+
+    ServicioService ..> Servicio : gestiona
+
+    %% Interface JpaRepository
+    class JpaRepository {
+        <<interface>>
+        +findAll() List~T~
+        +findById(ID) Optional~T~
+        +save(T) T
+        +deleteById(ID) void
+    }
