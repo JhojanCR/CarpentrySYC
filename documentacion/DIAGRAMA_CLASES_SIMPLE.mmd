@@ -1,0 +1,70 @@
+classDiagram
+    %% MODELO (Entidades)
+    class Usuario {
+        -Long id
+        -String nombre
+        -String email
+        -String password
+        -String rol
+    }
+
+    class Servicio {
+        -Long id
+        -String nombre
+        -String descripcion
+        -String imagenUrl
+    }
+
+    class Proyecto {
+        -Long id
+        -String nombre
+        -String descripcion
+        -String imagenUrl
+        -LocalDate fechaInicio
+        -String estado
+    }
+
+    class MensajeContacto {
+        -Long id
+        -String nombre
+        -String correo
+        -String mensaje
+        -LocalDateTime fechaEnvio
+    }
+
+    %% CONTROLADORES (lo más importante)
+    class PaginasController {
+        +inicio()
+        +servicios()
+        +contacto()
+    }
+
+    class AdminController {
+        +dashboard()
+        +gestionarServicios()
+        +gestionarProyectos()
+        +gestionarUsuarios()
+    }
+
+    %% REPOSITORIOS (acceso a BD)
+    class UsuarioRepository {
+        <<interface>>
+        +findByEmail()
+        +save()
+        +delete()
+    }
+
+    class ServicioRepository {
+        <<interface>>
+        +findAll()
+        +save()
+        +delete()
+    }
+
+    %% RELACIONES PRINCIPALES
+    PaginasController --> ServicioRepository : consulta
+    AdminController --> UsuarioRepository : gestiona
+    AdminController --> ServicioRepository : gestiona
+
+    ServicioRepository --> Servicio : accede
+    UsuarioRepository --> Usuario : accede

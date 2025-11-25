@@ -1,0 +1,45 @@
+flowchart TD
+    Start([Usuario accede al sitio web]) --> Tipo{¿Qué desea hacer?}
+
+    %% Flujo Visitante
+    Tipo -->|Ver información| VerSitio[Ver servicios y proyectos]
+    VerSitio --> Contacto{¿Desea contactar?}
+    Contacto -->|Sí| FormContacto[Llenar formulario de contacto]
+    FormContacto --> EnviarMsg[Enviar mensaje]
+    EnviarMsg --> FinContacto([Fin - Mensaje enviado])
+    Contacto -->|No| FinVisita([Fin de visita])
+
+    %% Flujo Registro
+    Tipo -->|Registrarse| FormRegistro[Formulario de registro]
+    FormRegistro --> ValidarEmail{¿Email único?}
+    ValidarEmail -->|No| ErrorEmail[Mostrar error]
+    ErrorEmail --> FormRegistro
+    ValidarEmail -->|Sí| CrearUsuario[Crear usuario con rol USER]
+    CrearUsuario --> FinRegistro([Usuario registrado])
+
+    %% Flujo Admin
+    Tipo -->|Administrar| Login[Iniciar sesión]
+    Login --> ValidarCredenciales{¿Credenciales válidas?}
+    ValidarCredenciales -->|No| ErrorLogin[Mostrar error]
+    ErrorLogin --> Login
+    ValidarCredenciales -->|Sí| Dashboard[Ver dashboard]
+    Dashboard --> AccionAdmin{¿Qué gestionar?}
+
+    AccionAdmin -->|Servicios| GestionarServicios[CRUD de Servicios]
+    AccionAdmin -->|Proyectos| GestionarProyectos[CRUD de Proyectos]
+    AccionAdmin -->|Usuarios| GestionarUsuarios[CRUD de Usuarios]
+    AccionAdmin -->|Mensajes| VerMensajes[Ver mensajes de contacto]
+
+    GestionarServicios --> FinAdmin([Cambios guardados])
+    GestionarProyectos --> FinAdmin
+    GestionarUsuarios --> FinAdmin
+    VerMensajes --> FinAdmin
+
+    style Start fill:#e1f5ff
+    style FinContacto fill:#c8e6c9
+    style FinVisita fill:#c8e6c9
+    style FinRegistro fill:#c8e6c9
+    style FinAdmin fill:#c8e6c9
+    style Dashboard fill:#fff9c4
+    style ErrorEmail fill:#ffcdd2
+    style ErrorLogin fill:#ffcdd2

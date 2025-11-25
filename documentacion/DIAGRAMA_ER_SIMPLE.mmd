@@ -1,0 +1,33 @@
+erDiagram
+    USUARIO {
+        BIGINT id PK
+        VARCHAR nombre
+        VARCHAR email UK
+        VARCHAR password
+        VARCHAR rol
+    }
+
+    SERVICIO {
+        BIGINT id PK
+        VARCHAR nombre
+        TEXT descripcion
+        VARCHAR imagenUrl
+    }
+
+    PROYECTO {
+        BIGINT id PK
+        VARCHAR nombre
+        TEXT descripcion
+        VARCHAR imagenUrl
+        DATE fechaInicio
+        VARCHAR estado
+    }
+
+    MENSAJE_CONTACTO {
+        BIGINT id PK
+        VARCHAR nombre
+        VARCHAR correo
+        VARCHAR telefono
+        TEXT mensaje
+        DATETIME fechaEnvio
+    }
