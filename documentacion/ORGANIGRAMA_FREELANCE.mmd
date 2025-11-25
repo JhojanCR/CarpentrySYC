@@ -1,0 +1,20 @@
+graph TD
+    %% Versión Minimalista - Microempresa de 1-3 personas
+    Fundador[👨‍💼 Fundador / CEO<br/>Tu Nombre<br/>Desarrollador Full Stack]
+
+    Fundador --> Frontend[🎨 Desarrollo Frontend<br/>Thymeleaf, Bootstrap, JS]
+    Fundador --> Backend[⚙️ Desarrollo Backend<br/>Spring Boot, MySQL, APIs]
+    Fundador --> Gestion[📋 Gestión de Proyectos<br/>Cliente: Carpentry SYC]
+
+    Frontend --> Entrega[📦 Entrega del Proyecto]
+    Backend --> Entrega
+    Gestion --> Entrega
+
+    Entrega --> Cliente[🏢 Cliente<br/>Carpentry y Acabados SYC]
+
+    style Fundador fill:#2c3e50,stroke:#1a252f,color:#fff
+    style Frontend fill:#9b59b6,stroke:#8e44ad,color:#fff
+    style Backend fill:#e74c3c,stroke:#c0392b,color:#fff
+    style Gestion fill:#3498db,stroke:#2980b9,color:#fff
+    style Entrega fill:#27ae60,stroke:#229954,color:#fff
+    style Cliente fill:#f39c12,stroke:#d68910,color:#fff

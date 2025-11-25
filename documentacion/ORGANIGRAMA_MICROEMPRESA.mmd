@@ -1,0 +1,32 @@
+graph TD
+    %% Nivel Directivo
+    Director[👨‍💼 Director General / Fundador<br/>Tu Nombre<br/>CEO & Lead Developer]
+
+    %% Nivel de Gestión
+    Director --> GestProyectos[📋 Gestión de Proyectos<br/>Coordinación y planificación]
+    Director --> AreaDesarrollo[💻 Área de Desarrollo<br/>Implementación técnica]
+    Director --> AreaDiseno[🎨 Área de Diseño<br/>UI/UX]
+
+    %% Equipo de Desarrollo
+    AreaDesarrollo --> DevFullStack[👨‍💻 Desarrollador Full Stack<br/>Backend + Frontend]
+    AreaDesarrollo --> DevBackend[⚙️ Desarrollador Backend<br/>Spring Boot, APIs, BD]
+    AreaDesarrollo --> QA[🧪 QA/Tester<br/>Pruebas y calidad]
+
+    %% Equipo de Diseño
+    AreaDiseno --> Disenador[🎨 Diseñador UI/UX<br/>Interfaces y experiencia]
+    AreaDiseno --> FrontendDev[🖼️ Maquetador Frontend<br/>HTML, CSS, Bootstrap]
+
+    %% Soporte
+    Director --> Soporte[🛠️ Soporte Técnico<br/>Mantenimiento post-entrega]
+
+    %% Estilos
+    style Director fill:#2c3e50,stroke:#1a252f,color:#fff
+    style GestProyectos fill:#3498db,stroke:#2980b9,color:#fff
+    style AreaDesarrollo fill:#e74c3c,stroke:#c0392b,color:#fff
+    style AreaDiseno fill:#9b59b6,stroke:#8e44ad,color:#fff
+    style DevFullStack fill:#ffebee,stroke:#e74c3c
+    style DevBackend fill:#ffebee,stroke:#e74c3c
+    style QA fill:#ffebee,stroke:#e74c3c
+    style Disenador fill:#f3e5f5,stroke:#9b59b6
+    style FrontendDev fill:#f3e5f5,stroke:#9b59b6
+    style Soporte fill:#e8f5e9,stroke:#27ae60
