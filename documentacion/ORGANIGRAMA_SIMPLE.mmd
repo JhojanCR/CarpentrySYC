@@ -1,0 +1,32 @@
+graph TD
+    %% Nivel Directivo
+    Gerente[👔 Gerente General<br/>Sebastián Yepes Castro]
+
+    %% Nivel Táctico
+    Gerente --> JefeOp[🔧 Jefe de Operaciones<br/>Gestión de proyectos]
+    Gerente --> JefeSist[💻 Jefe de Sistemas<br/>TI y desarrollo]
+    Gerente --> JefeComercial[📈 Jefe Comercial<br/>Ventas y marketing]
+
+    %% Nivel Operativo - Operaciones
+    JefeOp --> Maestro1[👷 Maestro Carpintero<br/>Ejecución de proyectos]
+    JefeOp --> Maestro2[👷 Ayudante<br/>Soporte técnico]
+
+    %% Nivel Operativo - Sistemas
+    JefeSist --> DevWeb[👨‍💻 Desarrollador Web<br/>Mantenimiento del sitio]
+    JefeSist --> SoporteTI[🖥️ Soporte TI<br/>Infraestructura]
+
+    %% Nivel Operativo - Comercial
+    JefeComercial --> Vendedor[🤝 Asesor Comercial<br/>Atención al cliente]
+    JefeComercial --> Marketing[📱 Community Manager<br/>Redes sociales]
+
+    %% Estilos
+    style Gerente fill:#4a90e2,stroke:#2c5aa0,color:#fff
+    style JefeOp fill:#f39c12,stroke:#d68910,color:#fff
+    style JefeSist fill:#9b59b6,stroke:#7d3c98,color:#fff
+    style JefeComercial fill:#27ae60,stroke:#1e8449,color:#fff
+    style Maestro1 fill:#e8f4f8,stroke:#4a90e2
+    style Maestro2 fill:#e8f4f8,stroke:#4a90e2
+    style DevWeb fill:#f4ecf7,stroke:#9b59b6
+    style SoporteTI fill:#f4ecf7,stroke:#9b59b6
+    style Vendedor fill:#eafaf1,stroke:#27ae60
+    style Marketing fill:#eafaf1,stroke:#27ae60
